@@ -31,6 +31,12 @@
     target: /usr/share/pdns-backend-mysql/schema/schema.mysql.sql
     login_user: "{{ database_user }}"
     login_password: "{{ database_admin_password }}"
+  changed_when: false
+  register: import_result
+
+- name: Skip if PowerDNS database schema is already imported
+  when: import_result is succeeded
+  tags: skip-import
 
 - name: Set pdns.local.gmysql.conf file
   template:
