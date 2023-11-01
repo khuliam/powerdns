@@ -28,11 +28,11 @@
     state: started
     enabled: yes
 
-- name: Check if root user exists
-  ansible.builtin.getent:
-    database: passwd
-    key: root
-  register: root_user
+- name: VCheck if root password is defined
+  shell: mysql -u root -p{{ database_admin_password }} -e "SELECT 1 FROM mysql.user WHERE User='root' AND authentication_string != '' LIMIT 1"
+  register: root_password_check
+  changed_when: false
+  ignore_errors: true
 
 - name: Set root password
   mysql_user:
@@ -43,7 +43,7 @@
     login_user: root
     login_password: ""
     check_implicit_admin: yes
-  # when: not root_user.ansible_facts.getent_passwd is defined
+  when: root_password_check.rc != 0
 
 - name: Copy my.cnf to ~/.my.cnf on ansible host
   template:
