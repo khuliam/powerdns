@@ -36,7 +36,7 @@
 
 - name: Update default_config.py file
   template:
-    src: /templates/vm/default_config.py.j2
+    src: templates/vm/default_config.py.j2
     dest: /var/www/html/pdns/powerdnsadmin/default_config.py
 
 - name: Activate virtual environment
