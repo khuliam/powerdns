@@ -10,7 +10,6 @@
   tasks:
     - include_tasks: playbook/vm/requirements.yml
     - include_tasks: playbook/vm/install_mariadb.yml
-    # - include_tasks: playbook/vm/disable_resolv.yml
     - include_tasks: playbook/vm/install_pdns.yml
     - include_tasks: playbook/vm/install_nodejs_and_yarn.yml
     - include_tasks: playbook/vm/install_pdns_frontend.yml
