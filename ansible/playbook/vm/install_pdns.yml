@@ -54,12 +54,12 @@
     name: pdns
     state: stopped
 
-- name: Start pdns_server with specific options
-  command: pdns_server --daemon=no --guardian=no --loglevel=9
-  async: 60
-  poll: 0
-  register: process_result
-  ignore_errors: true
+# - name: Start pdns_server with specific options
+#   command: pdns_server --daemon=no --guardian=no --loglevel=9
+#   async: 60
+#   poll: 0
+#   register: process_result
+#   ignore_errors: true
 
 # - name: Restart pdns service
 #   systemd:
