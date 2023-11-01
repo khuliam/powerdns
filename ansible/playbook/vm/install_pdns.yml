@@ -34,10 +34,6 @@
   changed_when: false
   register: import_result
 
-- name: Skip if PowerDNS database schema is already imported
-  when: import_result is succeeded
-  tags: skip-import
-
 - name: Set pdns.local.gmysql.conf file
   template:
     src: templates/vm/pdns.local.gmysql.conf.j2
