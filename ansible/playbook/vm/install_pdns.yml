@@ -24,6 +24,11 @@
     - pdns-server
     - pdns-backend-mysql
 
+- name: Check if 'domains' table exists
+  command: mysql -u "{{ database_user }}" -p "{{ database_admin_password }}" -e "USE {{ database_name }}; SHOW TABLES LIKE 'domains';"
+  register: check_table_result
+  ignore_errors: true
+
 - name: Import powedns dtatbase schema
   mysql_db:
     name: "{{ database_name }}"
@@ -31,8 +36,7 @@
     target: /usr/share/pdns-backend-mysql/schema/schema.mysql.sql
     login_user: "{{ database_user }}"
     login_password: "{{ database_admin_password }}"
-  changed_when: false
-  register: import_result
+  when: check_table_result.rc != 0
 
 - name: Set pdns.local.gmysql.conf file
   template:
