@@ -22,7 +22,7 @@
     - mariadb-server
     - mariadb-client
 
-- name: Démarrer et activer MariaDB
+- name: Run and activate MariaDB
   systemd:
     name: mariadb
     state: started
@@ -43,7 +43,7 @@
     login_user: root
     login_password: ""
     check_implicit_admin: yes
-  when: root_password_check.rc == 0
+  when: root_password_check.rc =! 0 or not root_password_check.changed
 
 - name: Copy my.cnf to ~/.my.cnf on ansible host
   template:
