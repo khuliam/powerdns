@@ -1,6 +1,6 @@
 ---
 - name: Add Node.js repository
-  shell: curl -sL https://deb.nodesource.com/setup_16.x
+  shell: curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 
 - name: Install Node.js
   apt:
@@ -8,7 +8,7 @@
     state: present
 
 - name: Add Yarn repository GPG key
-  shell: curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
+  shell: curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 
 - name: Add Yarn repository to sources.list.d
   shell: echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
