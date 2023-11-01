@@ -43,7 +43,7 @@
     login_user: root
     login_password: ""
     check_implicit_admin: yes
-  when: root_password_check.rc =! 0 or not root_password_check.changed
+  when: root_password_check.rc != 0 or not root_password_check.changed
 
 - name: Copy my.cnf to ~/.my.cnf on ansible host
   template:
