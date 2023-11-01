@@ -28,11 +28,11 @@
     state: started
     enabled: yes
 
-- name: Copy my.cnf to ~/.my.cnf on ansible host
-  template: 
-    src: ./templates/vm/my.cnf.j2
-    dest: ~/.my.cnf
-  delegate_to: localhost
+# - name: Copy my.cnf to ~/.my.cnf on ansible host
+#   template: 
+#     src: ~/templates/vm/my.cnf.j2
+#     dest: ~/.my.cnf
+#   delegate_to: localhost
 
 - name: Create a database named {{ database_name }}
   mysql_db:
