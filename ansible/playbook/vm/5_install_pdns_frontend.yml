@@ -10,7 +10,7 @@
     chdir: /var/www/html/pdns
 
 - name: Activate virtual environment
-  command: /bin/bash -c "source /var/www/html/pdns/flask/bin/activate"
+  command: source /var/www/html/pdns/flask/bin/activate
   args:
     executable: /bin/bash
 
