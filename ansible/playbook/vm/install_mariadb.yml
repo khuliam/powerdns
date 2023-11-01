@@ -40,6 +40,8 @@
   mysql_db:
     name: "{{ database_name }}"
     state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
 
 - name: Grant all privileges to {{ database_user }} on {{ database_name }}
   mysql_user:
