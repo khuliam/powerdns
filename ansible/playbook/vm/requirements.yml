@@ -36,13 +36,4 @@
     - libmariadb-dev
     - git
     - python3-flask
-
-- name: Install MySQL-python module
-  pip:
-    name: MySQL-python
-    executable: pip3
-
-- name: Install mysqlclient module
-  pip:
-    name: mysqlclient
-    executable: pip3
+    - python3-pymysql
