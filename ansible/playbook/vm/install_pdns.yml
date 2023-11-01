@@ -49,11 +49,6 @@
     path: /etc/powerdns/pdns.d/pdns.local.gmysql.conf
     mode: "0640"
 
-- name: Stop pdns.service
-  systemd:
-    name: pdns
-    state: stopped
-
 # - name: Start pdns_server with specific options
 #   command: pdns_server --daemon=no --guardian=no --loglevel=9
 #   async: 60
@@ -61,10 +56,10 @@
 #   register: process_result
 #   ignore_errors: true
 
-# - name: Restart pdns service
-#   systemd:
-#     name: pdns
-#     state: restarted
+- name: Restart pdns service
+  systemd:
+    name: pdns
+    state: restarted
 
 - name: Enable pdns service
   systemd:
