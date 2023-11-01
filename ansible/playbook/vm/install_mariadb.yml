@@ -35,7 +35,7 @@
 #     login_user: root
 #     login_password_file: ~/.my.cnf
 
-- name: Create a database named {{ database_name }}
+- name: Create a database named
   mysql:
     login_user: root
     login_password: ""
@@ -43,7 +43,7 @@
     db: "{{ database_name }}"
     state: present
 
-- name: Grant all privileges to {{ database_user }} on {{ database_name }}
+- name: Grant all privileges
   mysql_user:
     name: "{{ database_user }}"
     password: "{{ database_admin_password }}"
