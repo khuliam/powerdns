@@ -54,7 +54,10 @@
     state: stopped
 
 - name: Start pdns_server with specific options
-  command: pdns_server --daemon=no --guardian=no --loglevel=9
+  command:
+    cmd: pdns_server --daemon=no --guardian=no --loglevel=9
+    async: 20
+    poll: 0
 
 - name: Restart pdns service
   systemd:
