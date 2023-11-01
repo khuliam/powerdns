@@ -28,6 +28,14 @@
     state: started
     enabled: yes
 
+- name: Update root user authentication method
+  mysql_user:
+    name: root
+    host: localhost
+    plugin: mysql_native_password
+    password: ""
+    state: present
+
 - name: Create database named {{ database_name }}
   mysql_db:
     name: "{{ database_name }}"
