@@ -7,21 +7,22 @@
     name: nodejs
     state: present
 
-- name: Add an Apt signing key, uses whichever key is at the URL
-  ansible.builtin.apt_key:
+- name: Add Yarn repository key
+  apt_key:
     url: https://dl.yarnpkg.com/debian/pubkey.gpg
     state: present
 
-- name: Add Yarn repository GPG key
-  shell:
-    cmd: echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+- name: Add Yarn APT repository
+  apt_repository:
+    repo: "deb https://dl.yarnpkg.com/debian/ stable main"
+    state: present
+    filename: yarn
 
 - name: Update apt cache
   apt:
     update_cache: yes
 
-- name: Install Yarn
+- name: Install Yarn package
   apt:
     name: yarn
     state: present
-    update_cache: yes
