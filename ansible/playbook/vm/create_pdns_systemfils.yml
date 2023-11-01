@@ -1,0 +1,50 @@
+---
+- name: Create a System service file for PowerDNS Admin
+  template: 
+    src: pdnsadmin.service.j2
+    dest: /etc/systemd/system/pdnsadmin.service
+
+- name: create a socket file
+  template: 
+    src: pdnsadmin.socket.j2
+    dest: /etc/systemd/system/pdnsadmin.socket
+
+- name: Create directory
+  file:
+    path: /run/pdnsadmin
+    state: directory
+    mode: '0755'
+    owner: pdns
+    group: pdns
+
+- name: Configure environment file
+  lineinfile:
+    dest: /etc/tmpfiles.d/pdnsadmin.conf
+    line: "d /run/pdnsadmin 0755 pdns pdns -"
+    create: yes
+
+- name: Reload systemd
+  systemd:
+    daemon_reload: yes
+
+- name: Start and enable PowerDNS Admin service
+  systemd:
+    name: pdnsadmin.service
+    state: started
+    enabled: yes
+
+- name: Start and enable PowerDNS Admin socket
+  systemd:
+    name: pdnsadmin.socket
+    state: started
+    enabled: yes
+
+- name: Check status of PowerDNS Admin service
+  systemd:
+    name: pdnsadmin.service
+    state: status
+
+- name: Check status of PowerDNS Admin socket
+  systemd:
+    name: pdnsadmin.socket
+    state: status

@@ -1,0 +1,36 @@
+---
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Create a virtual host file
+  template: 
+    src: powerdns-admin.conf.j2
+    dest: /etc/nginx/sites-available/powerdns-admin.conf
+
+- name: Remove default Nginx file
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Create symbolic link
+  file:
+    src: /etc/nginx/sites-available/powerdns-admin.conf
+    dest: /etc/nginx/sites-enabled/powerdns-admin.conf
+    state: link
+
+- name: Run nginx -t command
+  command: nginx -t
+
+- name: Set ownership
+  file:
+    path: /var/www/html/pdns
+    owner: www-data
+    group: www-data
+    recurse: yes
+
+- name: Restart Nginx service
+  systemd:
+    name: nginx
+    state: restarted

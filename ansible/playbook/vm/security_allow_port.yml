@@ -1,0 +1,18 @@
+---
+- name: Install UFW
+  apt:
+    name: ufw
+    state: present
+
+- name: Enable UFW
+  command: ufw enable
+
+- name: Allow PDNS port
+  ufw:
+    rule: allow
+    port: "{{ server_port }}"
+
+- name: Allow port 53
+  ufw:
+    rule: allow
+    port: "53"

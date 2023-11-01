@@ -1,0 +1,64 @@
+---
+- name: Add pdns source_list file
+  template: src=pdns.list.j2 dest=/etc/apt/sources.list.d
+
+- name: Import the GPG key signing for the repository
+  command: curl -fsSL https://repo.powerdns.com/FD380FBB-pub.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/pdns.gpg
+
+- name: Set the APT preferences
+  template: src=pdns.j2 dest=/etc/apt/preferences.d
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install PowerDNS from the default APT
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - pdns-server
+    - pdns-backend-mysql
+
+- name: Import powedns dtatbase schema
+  mysql_db:
+    name: "{{ database_name }}"
+    state: import
+    target: /usr/share/pdns-backend-mysql/schema/schema.mysql.sql
+    login_user: "{{ database_user }}"
+    login_password: "{{ database_admin_password }}"
+
+- name: Set pdns.local.gmysql.conf file
+  template: src=pdns.local.gmysql.conf.j2 dest=/etc/powerdns/pdns.d/pdns.local.gmysql.conf
+
+- name: Change ownership of pdns.local.gmysql.conf
+  file:
+    path: /etc/powerdns/pdns.d/pdns.local.gmysql.conf
+    owner: pdns
+    group: pdns
+
+- name: Change permissions of pdns.local.gmysql.conf
+  file:
+    path: /etc/powerdns/pdns.d/pdns.local.gmysql.conf
+    mode: "0640"
+
+- name: Stop pdns.service
+  systemd:
+    name: pdns
+    state: stopped
+
+- name: Start pdns_server with specific options
+  command: pdns_server --daemon=no --guardian=no --loglevel=9
+
+- name: Restart pdns service
+  systemd:
+    name: pdns
+    state: restarted
+
+- name: Enable pdns service
+  systemd:
+    name: pdns
+    enabled: yes
+
+- name: Check pdns service status
+  command: ss -alnp4 | grep pdns

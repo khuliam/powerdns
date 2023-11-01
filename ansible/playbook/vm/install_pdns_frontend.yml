@@ -1,0 +1,68 @@
+---
+- name: Clone PowerDNS Admin source code
+  git:
+    repo: https://github.com/ngoduykhanh/PowerDNS-Admin.git
+    dest: /var/www/html/pdns
+
+- name: Create virtual environment
+  shell: virtualenv -p python3 flask
+  args:
+    chdir: /var/www/html/pdns
+
+- name: Activate virtual environment
+  shell: source /var/www/html/pdns/flask/bin/activate
+
+- name: Upgrade pip
+  pip:
+    name: pip
+    extra_args: --upgrade
+
+- name: Install dependencies from requirements.txt
+  pip:
+    requirements: /var/www/html/pdns/requirements.txt
+
+- name: Deactivate virtual environment
+  shell: deactivate
+  args:
+    chdir: /var/www/html/pdns
+
+- name: Update default_config.py file
+  template: src=default_config.py.j2 dest=/var/www/html/pdns/powerdnsadmin
+
+- name: Activate virtual environment
+  shell: source ./flask/bin/activate
+  args:
+    chdir: /var/www/html/pdns
+
+- name: Set environment variable
+  shell: export FLASK_APP=powerdnsadmin/__init__.py
+  args:
+    chdir: /var/www/html/pdns
+
+- name: Upgrade database schema
+  command: flask db upgrade
+  args:
+    chdir: /var/www/html/pdns
+
+- name: Install frontend dependencies
+  command: yarn install --pure-lockfile
+  args:
+    chdir: /var/www/html/pdns
+
+- name: Build assets
+  command: flask assets build
+  args:
+    chdir: /var/www/html/pdns
+
+- name: Deactivate virtual environment
+  shell: deactivate
+  args:
+    chdir: /var/www/html/pdns
+
+- name: Update powerdns/pdns.conf file
+  template: src=powerdns/pdns.conf.j2 dest=/etc/powerdns/pdns.conf
+
+- name: Restart PowerDNS service
+  systemd:
+    name: pdns
+    state: restarted

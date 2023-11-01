@@ -1,0 +1,37 @@
+---
+- name: Download MariaDB installation script
+  get_url:
+    url: https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
+    dest: /tmp/mariadb_repo_setup
+    mode: '0755'
+
+- name: Execute mariadb script
+  command: bash mariadb_repo_setup
+  args:
+    chdir: /tmp
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install MariaDB
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - mariadb-server
+    - mariadb-client
+
+- name: Démarrer et activer MariaDB
+  systemd:
+    name: mariadb
+    state: started
+    enabled: yes
+
+- name: Copy a PowerDNS database file
+  template: src=create_database.sql.j2 dest=/tmp/create_database.sql
+
+- name: Exécute SQL script tro create database
+  command: mysql -u root < ./create_database.sql
+  args:
+    chdir: /tmp

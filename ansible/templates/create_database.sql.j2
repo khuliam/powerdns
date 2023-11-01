@@ -1,0 +1,4 @@
+CREATE DATABASE {{ database_name }};
+GRANT ALL ON {{ database_name }}.* TO '{{ database_user }}'@'%' IDENTIFIED BY '{{ database_admin_password }}';
+FLUSH PRIVILEGES;
+EXIT

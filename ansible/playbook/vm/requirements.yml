@@ -1,0 +1,38 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install the required tools
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - curl
+    - vim
+    - git
+    - libpq-dev
+    - software-properties-common
+    - gnupg2 
+    - python3-dev
+
+- name: Install required build tools and packages for nodjs
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - libsasl2-dev
+    - libldap2-dev
+    - libssl-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - libxmlsec1-dev
+    - libffi-dev
+    - pkg-config
+    - apt-transport-https
+    - virtualenv
+    - python3-venv
+    - build-essential
+    - libmariadb-dev
+    - git
+    - python3-flask
