@@ -30,7 +30,7 @@
 
 - name: Copy my.cnf to ~/.my.cnf on ansible host
   copy:
-    src: my.cnf.j2
+    src: templates/vm/my.cnf.j2
     dest: ~/.my.cnf
     mode: '0600'
   delegate_to: localhost
