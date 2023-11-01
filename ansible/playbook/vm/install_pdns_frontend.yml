@@ -27,7 +27,9 @@
     chdir: /var/www/html/pdns
 
 - name: Update default_config.py file
-  template: src=default_config.py.j2 dest=/var/www/html/pdns/powerdnsadmin
+  template:
+    src: /templates/vm/default_config.py.j2
+    dest: /var/www/html/pdns/powerdnsadmin/default_config.py
 
 - name: Activate virtual environment
   shell: source ./flask/bin/activate
@@ -60,7 +62,9 @@
     chdir: /var/www/html/pdns
 
 - name: Update powerdns/pdns.conf file
-  template: src=powerdns/pdns.conf.j2 dest=/etc/powerdns/pdns.conf
+  template:
+    src: powerdns/pdns.conf.j2
+    dest: /etc/powerdns/pdns.conf
 
 - name: Restart PowerDNS service
   systemd:

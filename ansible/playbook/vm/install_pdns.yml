@@ -2,7 +2,7 @@
 - name: Add pdns source_list file
   template:
     src: templates/vm/pdns.list.j2
-    dest: /etc/apt/sources.list.d
+    dest: /etc/apt/sources.list.d/pdns.list
 
 - name: Import the GPG key signing for the repository
   shell: curl -fsSL https://repo.powerdns.com/FD380FBB-pub.asc | sudo gpg -o /etc/apt/trusted.gpg.d/pdns.gpg
@@ -10,7 +10,7 @@
 - name: Set the APT preferences
   template:
     src: templates/vm/pdns.j2
-    dest: /etc/apt/preferences.d
+    dest: /etc/apt/preferences.d/pdns
 
 - name: Update apt cache
   apt:
