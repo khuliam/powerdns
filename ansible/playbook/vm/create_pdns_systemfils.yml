@@ -1,12 +1,12 @@
 ---
 - name: Create a System service file for PowerDNS Admin
   template: 
-    src: pdnsadmin.service.j2
+    src: templates/vm/pdnsadmin.service.j2
     dest: /etc/systemd/system/pdnsadmin.service
 
 - name: create a socket file
   template: 
-    src: pdnsadmin.socket.j2
+    src: templates/vm/pdnsadmin.socket.j2
     dest: /etc/systemd/system/pdnsadmin.socket
 
 - name: Create directory

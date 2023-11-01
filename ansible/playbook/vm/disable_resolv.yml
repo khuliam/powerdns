@@ -6,4 +6,6 @@
   command: sudo unlink /etc/resolv.conf
 
 - name: Update the resolv.conf file
-  template: src=resolv.conf.j2 dest=/etc/resolv.conf
+  template:
+    src: templates/vm/resolv.conf.j2
+    dest: /etc/resolv.conf

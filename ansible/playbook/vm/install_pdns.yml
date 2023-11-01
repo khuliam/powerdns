@@ -1,12 +1,16 @@
 ---
 - name: Add pdns source_list file
-  template: src=pdns.list.j2 dest=/etc/apt/sources.list.d
+  template:
+    src: templates/vm/pdns.list.j2
+    dest: /etc/apt/sources.list.d
 
 - name: Import the GPG key signing for the repository
   command: curl -fsSL https://repo.powerdns.com/FD380FBB-pub.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/pdns.gpg
 
 - name: Set the APT preferences
-  template: src=pdns.j2 dest=/etc/apt/preferences.d
+  template:
+    src: templates/vm/pdns.j2
+    dest: /etc/apt/preferences.d
 
 - name: Update apt cache
   apt:
@@ -29,7 +33,9 @@
     login_password: "{{ database_admin_password }}"
 
 - name: Set pdns.local.gmysql.conf file
-  template: src=pdns.local.gmysql.conf.j2 dest=/etc/powerdns/pdns.d/pdns.local.gmysql.conf
+  template:
+    src: templates/vm/pdns.local.gmysql.conf.j2
+    dest: /etc/powerdns/pdns.d/pdns.local.gmysql.conf
 
 - name: Change ownership of pdns.local.gmysql.conf
   file:
