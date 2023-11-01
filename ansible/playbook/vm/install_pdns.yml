@@ -61,10 +61,10 @@
   register: process_result
   ignore_errors: true
 
-- name: Restart pdns service
-  systemd:
-    name: pdns
-    state: restarted
+# - name: Restart pdns service
+#   systemd:
+#     name: pdns
+#     state: restarted
 
 - name: Enable pdns service
   systemd:
