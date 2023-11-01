@@ -29,7 +29,7 @@
     - pdns-server
     - pdns-backend-mysql
 
-- name: Import powedns dtatbase schema
+- name: Import powedns database schema
   mysql_db:
     name: "{{ database_name }}"
     state: import
