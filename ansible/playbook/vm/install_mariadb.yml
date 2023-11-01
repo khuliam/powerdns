@@ -28,20 +28,18 @@
     state: started
     enabled: yes
 
-# - name: Copy a PowerDNS database file
-#   template: src=create_database.sql.j2 dest=/tmp/create_database.sql
-
-# - name: Exécute SQL script tro create database
-#   command: mysql -u root < ./create_database.sql
-#   args:
-#     chdir: /tmp
+- name: Copy my.cnf to ~/.my.cnf on ansible host
+  template: 
+    src: .my.cnf.j2
+    dest: ~/.my.cnf
+  delegate_to: localhost
 
 - name: Create a database named {{ database_name }}
   mysql_db:
     name: "{{ database_name }}"
     state: present
     login_user: root
-    login_password: ""
+    login_password_file: ~/.my.cnf
 
 - name: Grant all privileges to {{ database_user }} on {{ database_name }}
   mysql_user:
