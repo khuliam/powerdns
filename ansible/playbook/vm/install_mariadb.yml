@@ -43,10 +43,10 @@
     login_user: root
     login_password: ""
     check_implicit_admin: yes
-  when: not root_user.ansible_facts.getent_passwd is defined
+  # when: not root_user.ansible_facts.getent_passwd is defined
 
 - name: Copy my.cnf to ~/.my.cnf on ansible host
-  copy:
+  template:
     src: templates/vm/my.cnf.j2
     dest: ~/.my.cnf
     mode: '0600'
