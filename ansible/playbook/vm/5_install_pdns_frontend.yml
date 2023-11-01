@@ -82,7 +82,7 @@
 #   args:
 #     chdir: /var/www/html/pdns
 
-- name: Update powerdns/pdns.conf file
+- name: Update pdns.conf file to /etc/powerdns
   template:
     src: templates/vm/pdns.conf.j2
     dest: /etc/powerdns/pdns.conf
