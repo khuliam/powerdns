@@ -28,6 +28,16 @@
     state: started
     enabled: yes
 
+- name: Set root password
+  mysql_user:
+    name: root
+    password: {{ database_admin_password }}
+    host: localhost
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    login_user: root
+    login_password: ""
+    check_implicit_admin: yes
+
 - name: Copy my.cnf to ~/.my.cnf on ansible host
   copy:
     src: templates/vm/my.cnf.j2
