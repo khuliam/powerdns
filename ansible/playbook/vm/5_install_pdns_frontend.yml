@@ -10,7 +10,7 @@
     chdir: /var/www/html/pdns
 
 - name: Activate virtual environment
-  shell: pipenv shell --chdir=/var/www/html/pdns/flask source
+  shell: pipenv shell --chdir=/var/www/html/pdns/flask
 
 - name: Upgrade pip
   pip:
