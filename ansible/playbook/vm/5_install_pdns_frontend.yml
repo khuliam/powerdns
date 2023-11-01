@@ -4,29 +4,35 @@
     repo: https://github.com/ngoduykhanh/PowerDNS-Admin.git
     dest: /var/www/html/pdns
 
-- name: Create virtual environment
-  shell: virtualenv -p python3 flask
+# - name: Create virtual environment
+#   shell: virtualenv -p python3 flask
+#   args:
+#     chdir: /var/www/html/pdns
+
+- name: Create and Activate virtual environment
+  shell: |
+    virtualenv -p python3 flask
+    source ./flask/bin/activate
+    pip install --upgrade pip
+    pip install -r requirements.txt
+    deactivate
   args:
     chdir: /var/www/html/pdns
-
-- name: Activate virtual environment
-  command: source /var/www/html/pdns/flask/bin/activate
-  args:
     executable: /bin/bash
 
-- name: Upgrade pip
-  pip:
-    name: pip
-    extra_args: --upgrade
+# - name: Upgrade pip
+#   pip:
+#     name: pip
+#     extra_args: --upgrade
 
-- name: Install dependencies from requirements.txt
-  pip:
-    requirements: /var/www/html/pdns/requirements.txt
+# - name: Install dependencies from requirements.txt
+#   pip:
+#     requirements: /var/www/html/pdns/requirements.txt
 
-- name: Deactivate virtual environment
-  shell: deactivate
-  args:
-    chdir: /var/www/html/pdns
+# - name: Deactivate virtual environment
+#   shell: deactivate
+#   args:
+#     chdir: /var/www/html/pdns
 
 - name: Update default_config.py file
   template:
