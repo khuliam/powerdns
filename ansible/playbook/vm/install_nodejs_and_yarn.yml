@@ -11,7 +11,7 @@
   shell: curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
 
 - name: Add Yarn repository to sources.list.d
-  command: echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+  shell: echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
 - name: Install Yarn
   apt:
