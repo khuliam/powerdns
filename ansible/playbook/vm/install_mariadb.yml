@@ -28,6 +28,13 @@
     state: started
     enabled: yes
 
+- name: Copy my.cnf to ~/.my.cnf on ansible host
+  copy:
+    src: .my.cnf
+    dest: ~/.my.cnf
+    mode: '0600'
+  delegate_to: localhost
+
 - name: Update root user authentication method
   mysql_user:
     name: root
