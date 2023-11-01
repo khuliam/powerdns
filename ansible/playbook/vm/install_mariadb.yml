@@ -41,7 +41,7 @@
     name: "{{ database_name }}"
     state: present
     login_user: root
-    login_password: "{{ mysql_root_password }}"
+    login_password: ""
 
 - name: Grant all privileges to {{ database_user }} on {{ database_name }}
   mysql_user:
@@ -51,7 +51,7 @@
     host: "%"
     state: present
     login_user: root
-    login_password: "{{ mysql_root_password }}"
+    login_password: "{{ database_admin_password }}"
 
 - name: Update the privileges
   mysql_user:
@@ -60,7 +60,7 @@
     host: "%"
     state: present
     login_user: root
-    login_password: "{{ mysql_root_password }}"
+    login_password: "{{ database_admin_password }}"
     append_privs: yes
 
 - name: Refresh the privileges
