@@ -66,5 +66,5 @@
     name: pdns
     enabled: yes
 
-- name: Check pdns service status
-  command: ss -alnp4 | grep pdns
+# - name: Check pdns service status
+#   command: ss -alnp4 | grep pdns
