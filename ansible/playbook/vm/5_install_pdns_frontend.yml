@@ -1,13 +1,13 @@
 ---
+- name: Remove /var/www/html/pdns if it exists
+  file:
+    path: /var/www/html/pdns
+    state: absent
+
 - name: Clone PowerDNS Admin source code
   git:
     repo: https://github.com/ngoduykhanh/PowerDNS-Admin.git
     dest: /var/www/html/pdns
-
-# - name: Create virtual environment
-#   shell: virtualenv -p python3 flask
-#   args:
-#     chdir: /var/www/html/pdns
 
 - name: Create and Activate virtual environment
   shell: |
