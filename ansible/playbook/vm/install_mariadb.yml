@@ -28,10 +28,38 @@
     state: started
     enabled: yes
 
-- name: Copy a PowerDNS database file
-  template: src=create_database.sql.j2 dest=/tmp/create_database.sql
+# - name: Copy a PowerDNS database file
+#   template: src=create_database.sql.j2 dest=/tmp/create_database.sql
 
-- name: Exécute SQL script tro create database
-  command: mysql -u root < ./create_database.sql
-  args:
-    chdir: /tmp
+# - name: Exécute SQL script tro create database
+#   command: mysql -u root < ./create_database.sql
+#   args:
+#     chdir: /tmp
+
+- name: Create a database named {{ database_name }}
+  mysql_db:
+    name: "{{ database_name }}"
+    state: present
+
+- name: Grant all privileges to {{ database_user }} on {{ database_name }}
+  mysql_user:
+    name: "{{ database_user }}"
+    password: "{{ database_admin_password }}"
+    priv: "{{ database_name }}.*:ALL"
+    host: "%"
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+
+- name: Update the privileges
+  mysql_user:
+    name: "{{ database_user }}"
+    priv: "{{ database_name }}.*:ALL"
+    host: "%"
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    append_privs: yes
+
+- name: Refresh the privileges
+  command: mysql -e "FLUSH PRIVILEGES;"
