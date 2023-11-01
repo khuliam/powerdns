@@ -37,3 +37,4 @@
     - git
     - python3-flask
     - python3-pymysql
+    - pipenv
