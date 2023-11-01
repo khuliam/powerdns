@@ -7,6 +7,11 @@
 - name: Import the GPG key signing for the repository
   shell: curl -fsSL https://repo.powerdns.com/FD380FBB-pub.asc | sudo gpg -o /etc/apt/trusted.gpg.d/pdns.gpg
 
+- name: Import missing public key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 1B0C6205FD380FBB
+
 - name: Set the APT preferences
   template:
     src: templates/vm/pdns.j2
