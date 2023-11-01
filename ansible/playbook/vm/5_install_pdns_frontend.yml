@@ -39,39 +39,52 @@
     src: templates/vm/default_config.py.j2
     dest: /var/www/html/pdns/powerdnsadmin/default_config.py
 
-- name: Activate virtual environment
-  shell: source ./flask/bin/activate
-  args:
-    chdir: /var/www/html/pdns
 
-- name: Set environment variable
-  shell: export FLASK_APP=powerdnsadmin/__init__.py
+- name: Create and Activate virtual environment
+  shell: |
+    source ./flask/bin/activate
+    export FLASK_APP=powerdnsadmin/__init__.py
+    flask db upgrade
+    yarn install --pure-lockfile
+    flask assets build
+    deactivate
   args:
     chdir: /var/www/html/pdns
+    executable: /bin/bash
 
-- name: Upgrade database schema
-  command: flask db upgrade
-  args:
-    chdir: /var/www/html/pdns
+# - name: Activate virtual environment
+#   shell: source ./flask/bin/activate
+#   args:
+#     chdir: /var/www/html/pdns
 
-- name: Install frontend dependencies
-  command: yarn install --pure-lockfile
-  args:
-    chdir: /var/www/html/pdns
+# - name: Set environment variable
+#   shell: export FLASK_APP=powerdnsadmin/__init__.py
+#   args:
+#     chdir: /var/www/html/pdns
 
-- name: Build assets
-  command: flask assets build
-  args:
-    chdir: /var/www/html/pdns
+# - name: Upgrade database schema
+#   command: flask db upgrade
+#   args:
+#     chdir: /var/www/html/pdns
 
-- name: Deactivate virtual environment
-  shell: deactivate
-  args:
-    chdir: /var/www/html/pdns
+# - name: Install frontend dependencies
+#   command: yarn install --pure-lockfile
+#   args:
+#     chdir: /var/www/html/pdns
+
+# - name: Build assets
+#   command: flask assets build
+#   args:
+#     chdir: /var/www/html/pdns
+
+# - name: Deactivate virtual environment
+#   shell: deactivate
+#   args:
+#     chdir: /var/www/html/pdns
 
 - name: Update powerdns/pdns.conf file
   template:
-    src: powerdns/pdns.conf.j2
+    src: templates/vm/powerdns/pdns.conf.j2
     dest: /etc/powerdns/pdns.conf
 
 - name: Restart PowerDNS service
