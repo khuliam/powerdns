@@ -4,8 +4,8 @@ server_port: 8989
 server_ip: 172.16.1.4
 server_api_key: d5394f6c-ce87-41f3-9997-7058efdc4e7f
 database_admin_password: gm5DZqw5C2ARto
-database_name: $powerdns_db
-database_user: $powerdns_user
+database_name: powerdns_db
+database_user: powerdns_user
 mysql_port: 3306
 ldap_server_ip: 172.16.1.4
 private_nameserver: 172.16.1.4
