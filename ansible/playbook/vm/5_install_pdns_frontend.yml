@@ -20,25 +20,15 @@
     chdir: /var/www/html/pdns
     executable: /bin/bash
 
-# - name: Upgrade pip
-#   pip:
-#     name: pip
-#     extra_args: --upgrade
-
-# - name: Install dependencies from requirements.txt
-#   pip:
-#     requirements: /var/www/html/pdns/requirements.txt
-
-# - name: Deactivate virtual environment
-#   shell: deactivate
-#   args:
-#     chdir: /var/www/html/pdns
-
 - name: Update default_config.py file
   template:
     src: templates/vm/default_config.py.j2
     dest: /var/www/html/pdns/powerdnsadmin/default_config.py
 
+- name: Copy requirement file
+  template:
+    src: templates/vm/requirements.txt.j2
+    dest: /var/www/html/pdns/requirements.txt
 
 - name: Create and Activate virtual environment for upgrade flask
   shell: |
@@ -51,36 +41,6 @@
   args:
     chdir: /var/www/html/pdns
     executable: /bin/bash
-
-# - name: Activate virtual environment
-#   shell: source ./flask/bin/activate
-#   args:
-#     chdir: /var/www/html/pdns
-
-# - name: Set environment variable
-#   shell: export FLASK_APP=powerdnsadmin/__init__.py
-#   args:
-#     chdir: /var/www/html/pdns
-
-# - name: Upgrade database schema
-#   command: flask db upgrade
-#   args:
-#     chdir: /var/www/html/pdns
-
-# - name: Install frontend dependencies
-#   command: yarn install --pure-lockfile
-#   args:
-#     chdir: /var/www/html/pdns
-
-# - name: Build assets
-#   command: flask assets build
-#   args:
-#     chdir: /var/www/html/pdns
-
-# - name: Deactivate virtual environment
-#   shell: deactivate
-#   args:
-#     chdir: /var/www/html/pdns
 
 - name: Update pdns.conf file to /etc/powerdns
   template:
