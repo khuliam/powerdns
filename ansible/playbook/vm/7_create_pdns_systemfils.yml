@@ -38,13 +38,3 @@
     name: pdnsadmin.socket
     state: started
     enabled: yes
-
-- name: Check status of PowerDNS Admin service
-  systemd:
-    name: pdnsadmin.service
-    state: status
-
-- name: Check status of PowerDNS Admin socket
-  systemd:
-    name: pdnsadmin.socket
-    state: status

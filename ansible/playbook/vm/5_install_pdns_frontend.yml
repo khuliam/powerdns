@@ -20,34 +20,34 @@
     chdir: /var/www/html/pdns
     executable: /bin/bash
 
-# - name: Update default_config.py file
-#   template:
-#     src: templates/vm/default_config.py.j2
-#     dest: /var/www/html/pdns/powerdnsadmin/default_config.py
+- name: Update default_config.py file
+  template:
+    src: templates/vm/default_config.py.j2
+    dest: /var/www/html/pdns/powerdnsadmin/default_config.py
 
-# - name: Copy requirement file
-#   template:
-#     src: templates/vm/requirements.txt.j2
-#     dest: /var/www/html/pdns/requirements.txt
+- name: Copy requirement file
+  template:
+    src: templates/vm/requirements.txt.j2
+    dest: /var/www/html/pdns/requirements.txt
 
-# - name: Create and Activate virtual environment for upgrade flask
-#   shell: |
-#     source ./flask/bin/activate
-#     export FLASK_APP=powerdnsadmin/__init__.py
-#     flask db upgrade
-#     yarn install --pure-lockfile
-#     flask assets build
-#     deactivate
-#   args:
-#     chdir: /var/www/html/pdns
-#     executable: /bin/bash
+- name: Create and Activate virtual environment for upgrade flask
+  shell: |
+    source ./flask/bin/activate
+    export FLASK_APP=powerdnsadmin/__init__.py
+    flask db upgrade
+    yarn install --pure-lockfile
+    flask assets build
+    deactivate
+  args:
+    chdir: /var/www/html/pdns
+    executable: /bin/bash
 
-# - name: Update pdns.conf file to /etc/powerdns
-#   template:
-#     src: templates/vm/pdns.conf.j2
-#     dest: /etc/powerdns/pdns.conf
+- name: Update pdns.conf file to /etc/powerdns
+  template:
+    src: templates/vm/pdns.conf.j2
+    dest: /etc/powerdns/pdns.conf
 
-# - name: Restart PowerDNS service
-#   systemd:
-#     name: pdns
-#     state: restarted
+- name: Restart PowerDNS service
+  systemd:
+    name: pdns
+    state: restarted

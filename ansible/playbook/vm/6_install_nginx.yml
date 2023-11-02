@@ -6,7 +6,7 @@
 
 - name: Create a virtual host file
   template: 
-    src: powerdns-admin.conf.j2
+    src: templates/vm/powerdns-admin.conf.j2
     dest: /etc/nginx/sites-available/powerdns-admin.conf
 
 - name: Remove default Nginx file
