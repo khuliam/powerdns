@@ -1,5 +1,5 @@
 ---
-- name: Install UFW
+- name: Install UFW Firewall
   apt:
     name: ufw
     state: present
@@ -8,12 +8,17 @@
   ufw:
     state: enabled
 
-- name: Allow PDNS port
+- name: Allow {{ server_port }} for PDNS access
   ufw:
     rule: allow
     port: "{{ server_port }}"
 
-- name: Allow port 53
+- name: Allow port 53 for DNS server
   ufw:
     rule: allow
     port: "53"
+
+- name: Allow SSH connexion
+  ufw:
+    rule: allow
+    port: "22"
