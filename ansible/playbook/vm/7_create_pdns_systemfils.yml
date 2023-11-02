@@ -23,6 +23,20 @@
     line: "d /run/pdnsadmin 0755 pdns pdns -"
     create: yes
 
+- name: Change ownership of /run/pdnsadmin/
+  file:
+    path: /run/pdnsadmin/
+    owner: pdns
+    group: pdns
+    recurse: yes
+
+- name: Change ownership of /var/www/html/pdns/powerdnsadmin/
+  file:
+    path: /var/www/html/pdns/powerdnsadmin/
+    owner: pdns
+    group: pdns
+    recurse: yes
+
 - name: Reload systemd
   systemd:
     daemon_reload: yes
