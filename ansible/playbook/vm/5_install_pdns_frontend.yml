@@ -40,7 +40,7 @@
     dest: /var/www/html/pdns/powerdnsadmin/default_config.py
 
 
-- name: Create and Activate virtual environment
+- name: Create and Activate virtual environment for upgrade flask
   shell: |
     source ./flask/bin/activate
     export FLASK_APP=powerdnsadmin/__init__.py

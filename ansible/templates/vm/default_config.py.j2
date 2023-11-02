@@ -22,10 +22,10 @@ CAPTCHA_HEIGHT = 60
 CAPTCHA_SESSION_KEY = 'captcha_image'
 
 ### DATABASE CONFIG
-SQLA_DB_USER = 'powerdns_user'
+SQLA_DB_USER = '{{ database_user }}'
 SQLA_DB_PASSWORD = '{{ database_admin_password }}'
 SQLA_DB_HOST = '127.0.0.1'
-SQLA_DB_NAME = 'powerdns'
+SQLA_DB_NAME = '{{ database_name }}'
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 ### DATABASE - MySQL
