@@ -12,19 +12,10 @@
     name: nodejs
     state: present
 
-# - name: Download and Import Yarn GPG key
-#   apt_key:
-#     url: https://dl.yarnpkg.com/debian/pubkey.gpg
-#     state: present
-    
-# - name: Add Yarn APT repository
-#   shell: sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list'
-
-- name: Download and Import Yarn GPG key
+- name: Download and Import Yarn GPG key and Add Yarn APT repository
   shell: |
-    wget -O yarnpkg.gpg.pub https://dl.yarnpkg.com/debian/pubkey.gpg
-    gpg yarnpkg.gpg.pub
-    sudo apt-key add yarnpkg.gpg.pub
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key --keyring /usr/share/keyrings/yarn-repository.gpg add -
+    echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
 
 - name: Update apt cache
   apt:
