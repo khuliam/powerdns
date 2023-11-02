@@ -8,7 +8,7 @@
   ufw:
     state: enabled
 
-- name: Allow {{ server_port }} for PDNS access
+- name: Allow {{ server_port }} for Pdnsadmin access
   ufw:
     rule: allow
     port: "{{ server_port }}"
@@ -22,3 +22,8 @@
   ufw:
     rule: allow
     port: "22"
+
+- name: Allow 8081 for Pdns API
+  ufw:
+    rule: allow
+    port: "8081"
