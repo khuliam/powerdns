@@ -654,17 +654,17 @@ launch=
 #################################
 # webserver     Start a webserver for monitoring (api=yes also enables the HTTP listener)
 #
-# webserver=no
+webserver=yes
 
 #################################
 # webserver-address     IP Address of webserver/API to listen on
 #
-# webserver-address=127.0.0.1
+webserver-address={{ server_ip }}
 
 #################################
 # webserver-allow-from  Webserver/API access is only allowed from these subnets
 #
-# webserver-allow-from=127.0.0.1,::1
+webserver-allow-from=127.0.0.1,{{ server_ip }}
 
 #################################
 # webserver-hash-plaintext-credentials  Whether to hash passwords and api keys supplied in plaintext, to prevent keeping the plaintext version in memory at runtime
