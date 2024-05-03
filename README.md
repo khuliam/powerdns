@@ -6,7 +6,7 @@ Role Name
 Requirements
 ------------
 
-Notthing
+Pas de prérequis
 
 Role Variables
 --------------
@@ -30,7 +30,7 @@ Example Playbook
 License
 -------
 
-BSD
+GNU V3.0
 
 Author Information
 ------------------
