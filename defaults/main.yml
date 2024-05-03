@@ -1,0 +1,4 @@
+---
+pdns_servername: pdns.dev.local.ca
+pdns_pdns_domaine: dev.local.ca
+pdns_pdns_ip: 192.168.56.66

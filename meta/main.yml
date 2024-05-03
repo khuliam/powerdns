@@ -1,0 +1,18 @@
+galaxy_info:
+  author: Huliam Kenfack
+  description: powerdns is a role used to deploy a powerDNS server in Docker containers and configure HTTPS security on it.
+  company: KDH
+
+  license: license (BSD-3-Clause)
+
+  min_ansible_version: 2.10.17
+  min_ansible_container_version: 2.10.17
+
+  platforms:
+  - name: Debian
+    versions:
+      - "bookworm"
+
+  galaxy_tags: [powerdns]
+
+dependencies: []
