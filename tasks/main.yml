@@ -1,16 +1,13 @@
 ---
 - name: Créer le dossier d'instalaltion ~/powerdns
   ansible.builtin.file:
-    path: ~/powerdns/data-persistence/pda-mysql
+    path: ~/powerdns
     state: directory
-    recurse: true
-    mode: '744'
 
 - name: Copier le fichier docker-compose
   ansible.builtin.template:
     src: docker-compose.yml.j2
     dest: ~/powerdns/docker-compose.yml
-    mode: '0644'
 
 - name: Lancer les conteneurs pour powerdns
   community.docker.docker_compose:
