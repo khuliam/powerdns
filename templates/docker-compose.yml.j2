@@ -15,7 +15,7 @@ services:
       - 3306:3306 
     restart: always
     volumes:
-      - ./data-persistence/pda-mysql:/var/lib/mysql
+      - ./pda-mysql:/var/lib/mysql
 
   pdnsautoritative:
     image: pschiffe/pdns-mysql:latest
